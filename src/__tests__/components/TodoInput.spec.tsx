@@ -11,7 +11,7 @@ describe('TodoInput', () => {
 
   it('should be able to submit the input text by "submitEditing" event', async () => {
     const { getByPlaceholderText } = render(<TodoInput addTask={mockedAddTask} />);
-    const inputText = getByPlaceholderText('Adicionar novo todo...');
+    const inputText = getByPlaceholderText('Add new to.do...');
     
     fireEvent.changeText(inputText, 'Primeira task');
     fireEvent(inputText, 'submitEditing');
@@ -22,7 +22,7 @@ describe('TodoInput', () => {
 
   it('should be able to submit the input text by addButton', () => {
     const { getByPlaceholderText, getByTestId } = render(<TodoInput addTask={mockedAddTask} />);
-    const inputText = getByPlaceholderText('Adicionar novo todo...');
+    const inputText = getByPlaceholderText('Add new to.do...');
     const addButton = getByTestId('add-new-task-button');
 
     fireEvent.changeText(inputText, 'Primeira task');
@@ -34,7 +34,7 @@ describe('TodoInput', () => {
 
   it('should not be able to add an empty task', () => {
     const { getByPlaceholderText } = render(<TodoInput addTask={mockedAddTask} />);
-    const inputText = getByPlaceholderText('Adicionar novo todo...');
+    const inputText = getByPlaceholderText('Add new to.do...');
     
     fireEvent.changeText(inputText, '');
     fireEvent(inputText, 'submitEditing');

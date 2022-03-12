@@ -6,35 +6,35 @@ import { Home } from '../../pages/Home';
 describe('Home', () => {
   it('should be able to render new added tasks', () => {
     const { getByPlaceholderText, getByText } = render(<Home />);
-    const inputElement = getByPlaceholderText('Adicionar novo todo...');
+    const inputElement = getByPlaceholderText('Add new to.do...');
 
-    expect(getByText('0 tarefas'));
+    expect(getByText('0 tasks'));
 
-    fireEvent.changeText(inputElement, 'Primeira tarefa');
+    fireEvent.changeText(inputElement, 'First to.do');
     fireEvent(inputElement, 'submitEditing');
     
-    expect(getByText('Primeira tarefa'));
-    expect(getByText('1 tarefa'));
+    expect(getByText('First to.do'));
+    expect(getByText('1 task'));
 
-    fireEvent.changeText(inputElement, 'Segunda tarefa');
+    fireEvent.changeText(inputElement, 'Second to.do');
     fireEvent(inputElement, 'submitEditing');
 
-    expect(getByText('Primeira tarefa'));
-    expect(getByText('Segunda tarefa'));
-    expect(getByText('2 tarefas'));
+    expect(getByText('First to.do'));
+    expect(getByText('Second to.do'));
+    expect(getByText('2 tasks'));
   });
 
   it('should be able to render tasks as done and undone', () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(<Home />);
-    const inputElement = getByPlaceholderText('Adicionar novo todo...');
+    const inputElement = getByPlaceholderText('Add new to.do...');
 
-    fireEvent.changeText(inputElement, 'Primeira tarefa');
+    fireEvent.changeText(inputElement, 'First to.do');
     fireEvent(inputElement, 'submitEditing');
 
     const buttonElement = getByTestId('button-0');
     const markerElement = getByTestId('marker-0');
     
-    const taskElement = getByText('Primeira tarefa');
+    const taskElement = getByText('First to.do');
 
     expect(buttonElement).toHaveStyle({
       flex: 1,
@@ -70,20 +70,20 @@ describe('Home', () => {
 
   it('should be able to remove tasks after the trash icon was pressed', async () => {
     const { getByPlaceholderText, getByText, getByTestId, queryByText } = render(<Home />);
-    const inputElement = getByPlaceholderText('Adicionar novo todo...');
+    const inputElement = getByPlaceholderText('Add new to.do...');
 
-    fireEvent.changeText(inputElement, 'Primeira tarefa');
+    fireEvent.changeText(inputElement, 'First to.do');
     fireEvent(inputElement, 'submitEditing');
     
-    fireEvent.changeText(inputElement, 'Segunda tarefa');
+    fireEvent.changeText(inputElement, 'Second to.do');
     fireEvent(inputElement, 'submitEditing');
 
     const firstTaskTrashIcon = getByTestId('trash-0');
 
     fireEvent(firstTaskTrashIcon, 'press');
 
-    expect(queryByText('Primeira tarefa')).toBeNull();
-    expect(getByText('Segunda tarefa'));
-    expect(getByText('1 tarefa'));
+    expect(queryByText('First to.do')).toBeNull();
+    expect(getByText('Second to.do'));
+    expect(getByText('1 task'));
   });
 })
